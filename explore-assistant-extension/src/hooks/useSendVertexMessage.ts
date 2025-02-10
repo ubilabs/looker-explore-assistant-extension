@@ -17,7 +17,6 @@ import { BigQueryHelper } from '../utils/BigQueryHelper'
 import { ExploreParams } from '../slices/assistantSlice'
 import { ExploreFilterValidator, FieldType } from '../utils/ExploreFilterHelper'
 
-
 const parseJSONResponse = (jsonString: string | null | undefined) => {
   if (typeof jsonString !== 'string') {
     return {}
@@ -139,14 +138,15 @@ const useSendVertexMessage = () => {
 
       Here are some example prompts the user has asked so far and how to summarize them:
 
-${exploreRefinementExamples &&
-        exploreRefinementExamples
-          .map((item) => {
-            const inputText = '"' + item.input.join('", "') + '"'
-            return `- The sequence of prompts from the user: ${inputText}. The summarized prompts: "${item.output}"`
-          })
-          .join('\n')
-        }
+${
+  exploreRefinementExamples &&
+  exploreRefinementExamples
+    .map((item) => {
+      const inputText = '"' + item.input.join('", "') + '"'
+      return `- The sequence of prompts from the user: ${inputText}. The summarized prompts: "${item.output}"`
+    })
+    .join('\n')
+}
 
       Conversation so far
       ----------
@@ -160,6 +160,8 @@ ${exploreRefinementExamples &&
         
     `
       const response = await sendMessage(contents, {})
+
+      console.log(response)
 
       return response
     },
@@ -176,15 +178,26 @@ ${exploreRefinementExamples &&
     `
   }
 
-  const generateSharedContext = (dimensions: any[], measures: any[], exploreGenerationExamples: any[]) => {
+  const generateSharedContext = (
+    dimensions: any[],
+    measures: any[],
+    exploreGenerationExamples: any[],
+  ) => {
     if (!dimensions.length || !measures.length) {
       showBoundary(new Error('Dimensions or measures are not defined'))
       return
     }
     let exampleText = ''
     if (exploreGenerationExamples && exploreGenerationExamples.length > 0) {
-      console.log("Line",exploreGenerationExamples)
-      exampleText = exploreGenerationExamples.map((item) => `input: "${item.input}" ; output: ${JSON.stringify(parseLookerURL(item.output))}`).join('\n')
+      console.log('Line', exploreGenerationExamples)
+      exampleText = exploreGenerationExamples
+        .map(
+          (item) =>
+            `input: "${item.input}" ; output: ${JSON.stringify(
+              parseLookerURL(item.output),
+            )}`,
+        )
+        .join('\n')
     }
     return `
       # Documentation
@@ -245,7 +258,8 @@ ${exploreRefinementExamples &&
         ${exampleText}
       # End Examples
       
-  `}
+  `
+  }
 
   const isSummarizationPrompt = async (prompt: string) => {
     const contents = `
@@ -349,30 +363,29 @@ ${exploreRefinementExamples &&
     },
     [currentExplore],
   )
-  
+
   const parseLookerURL = (url: string): { [key: string]: any } => {
     // Split URL and extract model & explore
-    console.log("Line 331",url)
-    const urlSplit = url.split("?");
-    let model = ""
-    let explore = ""
-    let queryString = ""
+    console.log('Line 331', url)
+    const urlSplit = url.split('?')
+    let model = ''
+    let explore = ''
+    let queryString = ''
     if (urlSplit.length == 2) {
       const rootURL = urlSplit[0]
       queryString = urlSplit[1]
-      const rootURLElements = rootURL.split("/");
-      model = rootURLElements[rootURLElements.length - 2];
-      explore = rootURLElements[rootURLElements.length - 1];
-    }
-    else if (urlSplit.length == 1) {
-      model = "tbd"
-      explore = "tbd"
+      const rootURLElements = rootURL.split('/')
+      model = rootURLElements[rootURLElements.length - 2]
+      explore = rootURLElements[rootURLElements.length - 1]
+    } else if (urlSplit.length == 1) {
+      model = 'tbd'
+      explore = 'tbd'
       queryString = urlSplit[0]
     }
     // Initialize lookerEncoding object
-    const lookerEncoding: { [key: string]: any } = {};
-    lookerEncoding['model'] = ""
-    lookerEncoding['explore'] = ""
+    const lookerEncoding: { [key: string]: any } = {}
+    lookerEncoding['model'] = ''
+    lookerEncoding['explore'] = ''
     lookerEncoding['fields'] = []
     lookerEncoding['pivots'] = []
     lookerEncoding['fill_fields'] = []
@@ -386,54 +399,59 @@ ${exploreRefinementExamples &&
     lookerEncoding['subtotals'] = null
     lookerEncoding['vis'] = []
     // Split query string and iterate key-value pairs
-    const keyValuePairs = queryString.split("&");
+    const keyValuePairs = queryString.split('&')
     for (const qq of keyValuePairs) {
-      const [key, value] = qq.split('=');
+      const [key, value] = qq.split('=')
       console.log(qq)
       lookerEncoding['model'] = model
       lookerEncoding['explore'] = explore
       switch (key) {
-        case "fields":
-        case "pivots":
-        case "fill_fields":
-        case "sorts":
-          lookerEncoding[key] = value.split(",");
-          break;
-        case "filter_expression":
-        case "total":
-        case "row_total":
-        case "subtotals":
-          lookerEncoding[key] = value;
-          break;
-        case "limit":
-        case "column_limit":
-          lookerEncoding[key] = parseInt(value);
-          break;
-        case "vis":
-          lookerEncoding[key] = JSON.parse(decodeURIComponent(value));
-          break;
+        case 'fields':
+        case 'pivots':
+        case 'fill_fields':
+        case 'sorts':
+          lookerEncoding[key] = value.split(',')
+          break
+        case 'filter_expression':
+        case 'total':
+        case 'row_total':
+        case 'subtotals':
+          lookerEncoding[key] = value
+          break
+        case 'limit':
+        case 'column_limit':
+          lookerEncoding[key] = parseInt(value)
+          break
+        case 'vis':
+          lookerEncoding[key] = JSON.parse(decodeURIComponent(value))
+          break
         default:
-          if (key.startsWith("f[")) {
-            const filterKey = key.slice(2, -1);
-            lookerEncoding.filters[filterKey] = value;
-          } else if (key.includes(".")) {
-            const path = key.split(".");
-            let currentObject = lookerEncoding;
+          if (key.startsWith('f[')) {
+            const filterKey = key.slice(2, -1)
+            lookerEncoding.filters[filterKey] = value
+          } else if (key.includes('.')) {
+            const path = key.split('.')
+            let currentObject = lookerEncoding
             for (let i = 0; i < path.length - 1; i++) {
-              const segment = path[i];
+              const segment = path[i]
               if (!currentObject[segment]) {
-                currentObject[segment] = {};
+                currentObject[segment] = {}
               }
-              currentObject = currentObject[segment];
+              currentObject = currentObject[segment]
             }
-            currentObject[path[path.length - 1]] = value;
+            currentObject[path[path.length - 1]] = value
           }
       }
     }
-    return lookerEncoding;
-  };
+    return lookerEncoding
+  }
   const generateFilterParams = useCallback(
-    async (prompt: string, sharedContext: string, dimensions: any[], measures: any[]) => {
+    async (
+      prompt: string,
+      sharedContext: string,
+      dimensions: any[],
+      measures: any[],
+    ) => {
       // get the filters
       const filterContents = `
       ${sharedContext}
@@ -459,21 +477,23 @@ ${exploreRefinementExamples &&
       // const filterContentsCheck =
       //   filterContents +
       //   `
-  
+
       //      # Output
-     
+
       //      ${filterResponseInitial}
-     
+
       //      # Instructions
-     
+
       //      Verify the output, make changes and return the JSON
-     
+
       //      `
       // const filterResponseCheck = await sendMessage(filterContentsCheck, {})
       const filterResponseCheckJSON = parseJSONResponse(filterResponseInitial)
 
       // Ensure filterResponseCheckJSON is an array
-      const filterResponseArray = Array.isArray(filterResponseCheckJSON) ? filterResponseCheckJSON : []
+      const filterResponseArray = Array.isArray(filterResponseCheckJSON)
+        ? filterResponseCheckJSON
+        : []
 
       // Iterate through each filter
       const filterResponseJSON: any = {}
@@ -569,10 +589,7 @@ ${exploreRefinementExamples &&
   }
 
   const generateBaseExploreParams = useCallback(
-    async (
-      prompt: string,
-      sharedContext,
-    ) => {
+    async (prompt: string, sharedContext) => {
       const currentDateTime = new Date().toISOString()
 
       const contents = `
@@ -630,9 +647,22 @@ ${exploreRefinementExamples &&
         showBoundary(new Error('Dimensions or measures are not defined'))
         return
       }
-      const sharedContext = generateSharedContext(dimensions, measures, exploreGenerationExamples) || ''
-      const filterResponseJSON = await generateFilterParams(prompt, sharedContext, dimensions, measures)
-      const responseJSON = await generateBaseExploreParams(prompt, sharedContext)
+      const sharedContext =
+        generateSharedContext(
+          dimensions,
+          measures,
+          exploreGenerationExamples,
+        ) || ''
+      const filterResponseJSON = await generateFilterParams(
+        prompt,
+        sharedContext,
+        dimensions,
+        measures,
+      )
+      const responseJSON = await generateBaseExploreParams(
+        prompt,
+        sharedContext,
+      )
 
       responseJSON['filters'] = filterResponseJSON
 

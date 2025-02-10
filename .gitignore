@@ -1,7 +1,6 @@
 .cache
 .vscode
 temp_db.json
-.env
 .eslintcache
 .terraform*
 terraform.tfstate*
@@ -13,3 +12,7 @@ node_modules
 dist
 
 explore-assistant-backend/terraform/backend.tf
+
+venv
+
+.DS_Store

@@ -1,0 +1,7 @@
+VERTEX_AI_ENDPOINT=<This is your Deployed Cloud Function Endpoint>
+VERTEX_CF_AUTH_TOKEN=<This is the token used to communicate with the cloud function>
+
+VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME=looker-explore-assistant
+VERTEX_BIGQUERY_MODEL_ID=looker-explore-assistant1.explore_assistant.explore_assistant_llm
+BIGQUERY_EXAMPLE_PROMPTS_CONNECTION_NAME=looker-explore-assistant
+BIGQUERY_EXAMPLE_PROMPTS_DATASET_NAME=explore_assistant
