@@ -1,3 +1,5 @@
+For a quickstart guide look into the [ubilabs internal readme.](UBI_README.md)
+
 # Looker Explore Assistant
 
 This is an extension or API plugin for Looker that integrates LLM's hosted on Vertex AI into a natural language experience powered by Looker's modeling layer.
@@ -10,68 +12,77 @@ The Explore Assistant allows a user to generate a Looker Explore Query via natur
 
 Additionally, the extension provides:
 
- - Question History (*this is stored in the browser's localstorage*)
- - Categorized Prompts (*these can be customized by the use cases of your organization*)
- - Cached Explore URL's when clicking from History
- - Structured Logging with Input & Output Token Counts (*enables a workflow of log sink to BQ for cost estimation & tracking*)
- - Flexible Deployment Options
- - Multi-turn
- - Insight Summarization
- - Dynamic Explore Selection
+- Question History (_this is stored in the browser's localstorage_)
+- Categorized Prompts (_these can be customized by the use cases of your organization_)
+- Cached Explore URL's when clicking from History
+- Structured Logging with Input & Output Token Counts (_enables a workflow of log sink to BQ for cost estimation & tracking_)
+- Flexible Deployment Options
+- Multi-turn
+- Insight Summarization
+- Dynamic Explore Selection
 
 ### Technologies Used
+
 #### Frontend
+
 - [React](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Webpack](https://webpack.js.org/).
 - [Tailwind CSS](https://tailwindcss.com/)
 
 #### Looker
+
 - [Looker Extension SDK](https://github.com/looker-open-source/sdk-codegen/tree/main/packages/extension-sdk-react)
 - [Looker Embed SDK](https://cloud.google.com/looker/docs/embed-sdk)
 - [Looker Components](https://cloud.google.com/looker/docs/components)
 
 #### Backend API
+
 - [Google Cloud Platform](https://cloud.google.com/)
 - [Vertex AI](https://cloud.google.com/vertex-ai)
 - [Cloud Functions](https://cloud.google.com/functions)
 
 ## Get Started
 
-Getting started involves (*in this order*):
+Getting started involves (_in this order_):
+
 1. Clone or download a copy of this repository to your development machine.
    If you have a git ssh_config:
+
    ```bash
    # cd ~/ Optional. your user directory is usually a good place to git clone to.
    git clone git@github.com:looker-open-source/looker-explore-assistant.git
    ```
 
    If not:
+
    ```bash
    # cd ~/ Optional. your user directory is usually a good place to git clone to.
    git clone https://github.com/looker-open-source/looker-explore-assistant.git
    ```
+
    Alternatively, open up this repository in: &nbsp;
    [![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://shell.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/looker-open-source/looker-explore-assistant.git&cloudshell_workspace=explore-assistant-extension)
-2. Make sure [pip](https://pip.pypa.io/en/stable/cli/pip_install/) is installed on your computer to run the `pip install -r requirements.txt` command line in the setup section.     
-3. Install [`google-cloud-sdk`](https://cloud.google.com/sdk/docs/install) in the looker-explore-assistant directory to install Google Cloud SDK before the backend setup. 
-        >To install google-cloud-sdk, you can use this command `brew install —cask google-cloud-sdk`. Ensure you have [Homebrew](https://brew.sh/) installed first
+
+2. Make sure [pip](https://pip.pypa.io/en/stable/cli/pip_install/) is installed on your computer to run the `pip install -r requirements.txt` command line in the setup section.
+3. Install [`google-cloud-sdk`](https://cloud.google.com/sdk/docs/install) in the looker-explore-assistant directory to install Google Cloud SDK before the backend setup. >To install google-cloud-sdk, you can use this command `brew install —cask google-cloud-sdk`. Ensure you have [Homebrew](https://brew.sh/) installed first
 4. Create a GCP Project (you’ll need the ID later). It does not have to be the same project as the prompt tables but it is recommended for simplicity
 5. Create a Looker connection for that BigQuery project
 6. Create an empty Looker project
-       - Add the connection name to the model file
-       - Configure git
-       - That’s all you need to do for now. This is where the extension framework will be deployed. The connection should be the same as the one that holds the prompts
+   - Add the connection name to the model file
+   - Configure git
+   - That’s all you need to do for now. This is where the extension framework will be deployed. The connection should be the same as the one that holds the prompts
 
 The local cloud function backend and example generation require some python packages. It is recommended to create a python virtual environment and install the dependencies:
 
 ```bash
 # Use python3 on Mac OS
 python -m venv .venv
-source .venv/bin/activate 
+source .venv/bin/activate
 pip install -r ./explore-assistant-examples/requirements.txt
-pip install -r ./explore-assistant-cloud-function/requirements.txt 
+pip install -r ./explore-assistant-cloud-function/requirements.txt
 ```
+
 > If you hit a blocker with directory permissions, use `chmod +x <FILE NAME>` to allow write permissions.
 
 ## Setup
