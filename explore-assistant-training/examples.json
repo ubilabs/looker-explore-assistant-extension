@@ -1,0 +1,38 @@
+[
+    {
+        "input": "What is the total billable amount for each role this year for external clients that haven't been billed yet?",
+        "output": "fields%3Dtime_entry.total_billable_amount%26f%5Btime_entry.spent_date%5D%3Dthis+year%26f%5Btime_entry.billable%5D%3DYes%26f%5Bclient.is_internal%5D%3DNo%26f%5Btime_entry.is_billed%5D%3DNo%26f%5Brole.name%5D%3D%26limit%3D500%26column_limit%3D50%26vis%3D%7B%22type%22%3A%22linear%22%7D"
+    },
+    {
+        "input": "What percentage of the budget has been used for the CSKE \u2013 Storytelling \u2013 Phase 1 project?",
+        "output": "fields%3Dfov_timeentry_project.percentage_of_budget_used%26f%5Bproject.name%5D%3DCSKE+%E2%80%93+Storytelling+%E2%80%93+Phase+1%26limit%3D500%26column_limit%3D50"
+    },
+    {
+        "input": "What are the project details, task names, time entry information, hour types, hours, and user names for the 'KRITIS - Ern\u00e4hrungsnotfallvorsorge' project?",
+        "output": "fields%3Dproject.name%2Cproject.budget%2Cproject.is_billable%2Cproject.fee%2Cproject.hourly_rate%2Ctask.name%2Ctime_entry.billable_rate%2Ctime_entry.billable%2Ctime_entry.budgeted%2Ctime_entry.notes%2Ctime_entry.spent_date%2Cfov_ubi_categories_of_hours.ubi_hour_type%2Ctime_entry.hours%2Cusers.name%26f%5Bproject.name%5D%3DKRITIS+-+Ern%C3%A4hrungsnotfallvorsorge%26sorts%3Dproject.name%26limit%3D500%26column_limit%3D50"
+    },
+    {
+        "input": "What is the total billable amount for billable time entries that have been billed for the Google Maps Industry Demos - 2021/22 project?",
+        "output": "fields%3Dtime_entry.total_billable_amount%26f%5Btime_entry.billable%5D%3DYes%26f%5Btime_entry.is_billed%5D%3DYes%26f%5Bproject.name%5D%3DGoogle+Maps+Industry+Demos+-+2021%2F22%26sorts%3Dtime_entry.total_billable_amount+desc+0%26limit%3D500%26column_limit%3D50%26vis%3D%7B%22type%22%3A%22linear%22%7D"
+    },
+    {
+        "input": "What is the total billable amount for external clients this year that hasn't been billed yet?",
+        "output": "fields%3Dtime_entry.total_billable_amount%26f%5Btime_entry.spent_date%5D%3Dthis+year%26f%5Btime_entry.billable%5D%3DYes%26f%5Bclient.is_internal%5D%3DNo%26f%5Btime_entry.is_billed%5D%3DNo%26f%5Brole.name%5D%3D%26limit%3D500%26column_limit%3D50%26vis%3D%7B%22type%22%3A%22linear%22%7D"
+    },
+    {
+        "input": "What is the total billable amount for external clients this year that haven't been billed yet?",
+        "output": "fields%3Dtime_entry.total_billable_amount%26f%5Btime_entry.spent_date%5D%3Dthis+year%26f%5Btime_entry.billable%5D%3DYes%26f%5Bclient.is_internal%5D%3DNo%26f%5Btime_entry.is_billed%5D%3DNo%26f%5Brole.name%5D%3D%26limit%3D500%26column_limit%3D50%26vis%3D%7B%22type%22%3A%22linear%22%7D"
+    },
+    {
+        "input": "What are the names of the users and their total rounded hours for the year 2023, excluding 'Abwesenheit' clients?",
+        "output": "fields%3Dusers.name%2Cdynamic_field_8b176aec40cc4a8cf6715f8ddd4921090%2Ctime_entry.total_hours_rounded%26f%5Bclient.name%5D%3D-%25Abwesenheit%25%26f%5Btime_entry.spent_year%5D%3D2023%26limit%3D100000%26column_limit%3D-1%26dynamic_fields%3D%5B%7B%22dimension%22%3A%22dynamic_field_acecf57eac7c8ac8cc9ee11d8e9244491%22%2C%22expression%22%3A%221%22%7D%2C%7B%22measure%22%3A%22dynamic_field_8b176aec40cc4a8cf6715f8ddd4921090%22%2C%22based_on%22%3A%22dynamic_field_acecf57eac7c8ac8cc9ee11d8e9244491%22%2C%22type%22%3A%22max%22%7D%5D"
+    },
+    {
+        "input": "What is the total billable amount for external clients in the last year for time entries that have not been billed?",
+        "output": "fields%3Dtime_entry.total_billable_amount%26f%5Btime_entry.spent_date%5D%3D1+years%26f%5Btime_entry.billable%5D%3DYes%26f%5Bclient.is_internal%5D%3DNo%26f%5Btime_entry.is_billed%5D%3DNo%26limit%3D500%26column_limit%3D50%26vis%3D%7B%22type%22%3A%22linear%22%7D"
+    },
+    {
+        "input": "What is the total billable amount for external clients with billable and billed time entries between January 1, 2024 and November 21, 2024?",
+        "output": "fields%3Dtime_entry.total_billable_amount%26f%5Btime_entry.spent_date%5D%3D2024%2F01%2F01+to+2024%2F11%2F21%26f%5Btime_entry.billable%5D%3DYes%26f%5Bclient.is_internal%5D%3DNo%26f%5Btime_entry.is_billed%5D%3DYes%26f%5Brole.name%5D%3D%26limit%3D500%26column_limit%3D50%26vis%3D%7B%22type%22%3A%22linear%22%7D"
+    }
+]

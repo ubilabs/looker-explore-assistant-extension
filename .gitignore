@@ -16,3 +16,5 @@ explore-assistant-backend/terraform/backend.tf
 venv
 
 .DS_Store
+*/looker.ini
+explore-assistant-training/*.txt

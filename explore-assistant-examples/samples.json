@@ -1,14 +1,14 @@
 [
-    {
-      "category": "Performance",
-      "prompt": "What parent companies sell the most Fresh Blueberries by units?"
-    },
-    {
-      "category": "Volume Trends",
-      "prompt":"What is the trend in sales volume for blueberries over the last year?"
-    },
-    {
-      "category": "Seasonality",
-      "prompt": "Do blueberry sales volumes peak during specific seasons?"
-    }
+  {
+    "category": "Sentinel.D Maintenance",
+    "prompt": "What is the total cost budget for the Sentinel.D Maintenance project?"
+  },
+  {
+    "category": "Volume Trends",
+    "prompt": "What is the trend in sales volume for blueberries over the last year?"
+  },
+  {
+    "category": "Seasonality",
+    "prompt": "Do blueberry sales volumes peak during specific seasons?"
+  }
 ]
